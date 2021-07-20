@@ -22,10 +22,9 @@
     <dialog id="product-details">
       <form method="dialog">
         <h1>Product Info!</h1>
-        <p>Name: ...</p>
-        <p>Description: ...</p>
-        <p>Price: ...</p>
-        <p>Image_url: ...</p>
+        <p>Name: {{ currentProduct.name }}</p>
+        <p>Description: {{ currentProduct.description }}</p>
+        <p>Price: ${{ currentProduct.price }}</p>
         <button>Close</button>
       </form>
     </dialog>
@@ -45,6 +44,7 @@ export default {
       message2: "How are things today?",
       products: [],
       newProductParams: {},
+      currentProduct: {},
     };
   },
   created: function () {
@@ -69,6 +69,7 @@ export default {
     },
     showProduct: function (product) {
       console.log(product);
+      this.currentProduct = product;
       document.querySelector("#product-details").showModal();
     },
   },
