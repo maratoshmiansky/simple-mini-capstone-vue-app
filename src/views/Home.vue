@@ -1,18 +1,56 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <h1>{{ message }}</h1>
+    <h2>{{ message2 }}</h2>
+    <button v-on:click="createProduct()">Create a new product!</button>
+    <div v-for="product in products" v-bind:key="product.id">
+      <h2>Title: {{ product.name }}</h2>
+      <p>Price: ${{ product.price }}</p>
+      <img v-bind:src="product.image_url" alt="product.title" />
+    </div>
   </div>
 </template>
-
+<style>
+img {
+  width: 400px;
+}
+</style>
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
+import axios from "axios";
 export default {
-  name: "Home",
-  components: {
-    HelloWorld,
+  data: function () {
+    return {
+      message: "Welcome to Vue.js, Marat!",
+      message2: "How are things today?",
+      products: [],
+    };
+  },
+  created: function () {
+    this.indexProducts();
+  },
+  methods: {
+    indexProducts: function () {
+      axios.get("http://localhost:3000/products").then((response) => {
+        this.products = response.data;
+        console.log("All products:", this.products);
+      });
+    },
+    createProduct: function () {
+      console.log("Creating product");
+      var params = {
+        name: "Corn Dog",
+        description: "wiener dipped in cornmeal and deep fried",
+        price: 1.99,
+        image_url: "",
+      };
+      axios
+        .post("http://localhost:3000/products", params)
+        .then((response) => {
+          console.log("Success!", response.data);
+          this.products.push(response.data);
+        })
+        .catch((error) => console.log(error.response));
+    },
   },
 };
 </script>
