@@ -21,7 +21,7 @@
     </div>
     <dialog id="product-details">
       <form method="dialog">
-        <h1>Recipe Info!</h1>
+        <h1>Product Info!</h1>
         <p>Name: ...</p>
         <p>Description: ...</p>
         <p>Price: ...</p>
