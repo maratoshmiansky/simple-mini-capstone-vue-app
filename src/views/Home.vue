@@ -17,7 +17,18 @@
       <h2>Title: {{ product.name }}</h2>
       <p>Price: ${{ product.price }}</p>
       <img v-bind:src="product.image_url" alt="product.title" />
+      <button v-on:click="showProduct(product)">More info!</button>
     </div>
+    <dialog id="product-details">
+      <form method="dialog">
+        <h1>Recipe Info!</h1>
+        <p>Name: ...</p>
+        <p>Description: ...</p>
+        <p>Price: ...</p>
+        <p>Image_url: ...</p>
+        <button>Close</button>
+      </form>
+    </dialog>
   </div>
 </template>
 <style>
@@ -55,6 +66,10 @@ export default {
           this.products.push(response.data);
         })
         .catch((error) => console.log(error.response));
+    },
+    showProduct: function (product) {
+      console.log(product);
+      document.querySelector("#product-details").showModal();
     },
   },
 };
